@@ -1,4 +1,4 @@
-class Req {
+export default class Req {
   constructor({headers = {}, requestProcessors = [], responseProcessors = []} = {}) {
     this.options = {};
     this.options.headers = headers;
