@@ -1,9 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41,16 +37,25 @@ var Req = (function () {
       var method = _ref2.method;
       var url = _ref2.url;
       var body = _ref2.body;
+      var options = _ref2.options;
 
-      var options = { headers: this.options.headers, mode: this.options.mode, method: method };
+      var _options = { headers: this.options.headers, mode: this.options.mode, method: method };
 
-      if (body) options.body = body;
+      if (body) _options.body = body;
+
+      if (options) {
+        for (var key1 in options) {
+          if (key1 === "headers") for (var key2 in options.headers) {
+            _options.headers[key2.toLowerCase()] = options.headers[key2];
+          } else _options[key1] = options[key1];
+        }
+      }
 
       this.requestProcessors.forEach(function (f) {
-        f.call(options);
+        f.call(_options);
       });
 
-      return fetch(new Request(url, options)).then(function (response) {
+      return fetch(new Request(url, _options)).then(function (response) {
         return _this.responseProcessors.reduce(function (response, postProcessors) {
           return response.then(postProcessors);
         }, Promise.resolve(response));
@@ -58,35 +63,32 @@ var Req = (function () {
     }
   }, {
     key: "get",
-    value: function get(url) {
-      return this.send({ method: "GET", url: url });
+    value: function get(url, options) {
+      return this.send({ method: "GET", url: url, options: options });
     }
   }, {
     key: "delete",
-    value: function _delete(url) {
-      return this.send({ method: "DELETE", url: url });
+    value: function _delete(url, options) {
+      return this.send({ method: "DELETE", url: url, options: options });
     }
   }, {
     key: "post",
-    value: function post(url, body) {
-      return this.send({ method: "POST", url: url, body: body });
+    value: function post(url, body, options) {
+      return this.send({ method: "POST", url: url, body: body, options: options });
     }
   }, {
     key: "put",
-    value: function put(url, body) {
-      return this.send({ method: "PUT", url: url, body: body });
+    value: function put(url, body, options) {
+      return this.send({ method: "PUT", url: url, body: body, options: options });
     }
   }, {
     key: "patch",
-    value: function patch(url, body) {
-      return this.send({ method: "PATCH", url: url, body: body });
+    value: function patch(url, body, options) {
+      return this.send({ method: "PATCH", url: url, body: body, options: options });
     }
   }]);
 
   return Req;
 })();
 
-exports["default"] = Req;
-module.exports = exports["default"];
-
-//# sourceMappingURL=Req-compiled.js.map
+//# sourceMappingURL=index-compiled.js.map
