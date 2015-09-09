@@ -1,14 +1,43 @@
 {
-  "name": "minireq",
-  "description": "a mini pack of fetch api",
+  "name": "feq",
+  "description": "A mini pack of fetch api",
   "version": "0.1.1",
   "license": "MIT",
-  "keywords": [
-    "fetch"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exound/feq.git"
+  },
+  "contributors": [
+    {
+      "name": "GGmega",
+      "email": "ggmega@exound.com"
+    },
+    {
+      "name": "Kaid",
+      "email": "kaid@exound.com"
+    }
   ],
+  "keywords": [
+    "fetch",
+    "http"
+  ],
+  "main": "dist/lmount.js",
+  "scripts": {
+    "prepublish": "node_modules/.bin/babel src/feq.js -o dist/feq.js",
+    "test": "node_modules/.bin/mocha --compilers js:babel/register --reporter dot ./test/*.test.js",
+    "test:watch": "node_modules/.bin/mocha --compilers js:babel/register --reporter dot --watch ./test/*.test.js"
+  },
   "files": [
-    "LICENSE",
     "HISTORY.md",
-    "index.js"
-  ]
+    "dist/feq.js"
+  ],
+  "dependencies": {
+    "isomorphic-fetch": "~2.1.1"
+  },
+  "devDependencies": {
+    "babel": "~5.8.23",
+    "mocha": "~2.3.1",
+    "koa": "latest",
+    "chai": "~2.1.0"
+  }
 }
