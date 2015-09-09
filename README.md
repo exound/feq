@@ -1,2 +1,2 @@
-## Req.js
+# Feq
 An experimental mini fetch api.

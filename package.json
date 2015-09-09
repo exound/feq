@@ -21,7 +21,7 @@
     "fetch",
     "http"
   ],
-  "main": "dist/lmount.js",
+  "main": "dist/feq.js",
   "scripts": {
     "prepublish": "node_modules/.bin/babel src/feq.js -o dist/feq.js",
     "test": "node_modules/.bin/mocha --compilers js:babel/register --reporter dot ./test/*.test.js",
